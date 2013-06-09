@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.crowdriff</groupId>
+	<artifactId>scaltest</artifactId>
+	<packaging>jar</packaging>
+	<version>0.1.0</version>
+	<name>${project.artifactId}</name>
+	<url>http://crowdriff.com</url>
+	
+	<properties>
+		<encoding>UTF-8</encoding>
+		<junit.version>4.11</junit.version>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<mongo.driver.version>2.11.1</mongo.driver.version>
+		<scala.version>2.10.1</scala.version>
+	</properties>
+	
+	<repositories>
+		<repository>
+			<id>scala-tools.org</id>
+			<name>Scala-tools Maven2 Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>scala-tools.org</id>
+			<name>Scala-tools Maven2 Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</pluginRepository>
+	</pluginRepositories>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${mongo.driver.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<sourceDirectory>src/main/scala</sourceDirectory>
+		<testSourceDirectory>src/test/scala</testSourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+				<version>2.15.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sourceDir>src/main/java</sourceDir>
+					<jvmArgs>
+						<jvmArg>-Xms64m</jvmArg>
+						<jvmArg>-Xmx1024m</jvmArg>
+					</jvmArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<mainClass>com.crowdriff.scaltest.Main</mainClass>
+					<classpathScope>compile</classpathScope>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
